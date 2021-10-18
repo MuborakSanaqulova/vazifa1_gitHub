@@ -10,5 +10,5 @@ public class RoomDto {
     private Integer number;
     private Integer floor;
     private String size;
-    private Integer universityId;
+    private Integer hotelId;
 }

@@ -18,5 +18,4 @@ public class Hotel {
 
     @Column(nullable = false)
     private String name;
-
 }

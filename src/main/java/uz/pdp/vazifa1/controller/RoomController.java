@@ -29,18 +29,18 @@ public class RoomController {
         return roomRepository.findAll(pageable);
     }
 
-    @GetMapping("/hotelId/{hotelId}")
-    public Page<Room> getRoomByHotelId(@PathVariable Integer hotelId, Pageable pageable) throws Exception {
+    @GetMapping("/byHotelId/{hotelId}")
+    public Page<Room> getRoomByHotelId(@PageableDefault(sort = "id", direction = Sort.Direction.ASC)Pageable pageable, @PathVariable Integer hotelId) throws Exception {
         Optional<Hotel> optionalHotel = hotelRepository.findById(hotelId);
         if (optionalHotel.isPresent()) {
-            return roomRepository.findAllByHotelId(hotelId, pageable);
+            return roomRepository.findAllByHotelIdNative(hotelId, pageable);
         }
         throw new Exception("xatolik");
     }
 
     @PostMapping
     public String post(@RequestBody RoomDto roomDto){
-        Optional<Hotel> optionalHotel = hotelRepository.findById(roomDto.getUniversityId());
+        Optional<Hotel> optionalHotel = hotelRepository.findById(roomDto.getHotelId());
         if (optionalHotel.isPresent()){
             Room room = new Room();
             room.setNumber(roomDto.getNumber());
@@ -68,7 +68,7 @@ public class RoomController {
     public String edit(@PathVariable Integer id, @RequestBody RoomDto roomDto){
         Optional<Room> optionalRoom = roomRepository.findById(id);
         if (optionalRoom.isPresent()){
-            Optional<Hotel> optionalHotel = hotelRepository.findById(roomDto.getUniversityId());
+            Optional<Hotel> optionalHotel = hotelRepository.findById(roomDto.getHotelId());
             if (optionalHotel.isPresent()){
                 Room room = new Room();
                 room.setId(id);
