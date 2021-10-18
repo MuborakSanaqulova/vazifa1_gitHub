@@ -38,6 +38,7 @@ public class RoomController {
         throw new Exception("xatolik");
     }
 
+
     @PostMapping
     public String post(@RequestBody RoomDto roomDto){
         Optional<Hotel> optionalHotel = hotelRepository.findById(roomDto.getHotelId());
